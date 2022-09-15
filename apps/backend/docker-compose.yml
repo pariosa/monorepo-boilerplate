@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+    node-express:
+      build: .
+      environment:
+        DATABASE_URL:
+        NODE_ENV: development
+        PORT: 8080
+      ports:
+        - '8080:8080'
+      command: sh -c "/wait && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npm run start"
+      volumes:
+        - .:/app/
+        - /app/node_modules
+      depends_on:
+        - tpc-mssql
+      environment:
+        - WAIT_HOSTS=crm-mssql:1433
+        - WAIT_HOSTS_TIMEOUT=300
+        - WAIT_SLEEP_INTERVAL=1
+        - WAIT_HOST_CONNECT_TIMEOUT=30
+        - DATABASE_HOST=tpc-mssql
+
+    tpc-mssql:
+      image: mcr.microsoft.com/mssql/server:2017-latest
+      hostname: tpc-mssql
+      container_name: tpc-mssql
+      ports:
+        - "1433:1433"
+      environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=QkOPiu2ld3!jf54
+        - MSSQL_PID=Standard
