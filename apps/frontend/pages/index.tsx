@@ -5,7 +5,6 @@ import { fetchPersonsWithRedux as fetchPersons } from '../actions/personActions'
 import { fetchTradePartnersWithRedux as fetchTradePartners } from '../actions/tradePartnersActions'
 import Header from '../components/Header'
 import TradePartnersTable from '../components/Table/TradePartnersTable'
-
 interface StateProps {}
 
 interface DispatchProps {
@@ -31,10 +30,12 @@ function Index({ fetchPersons, fetchTradePartners }: Props) {
   }, [fetchTradePartners])
   return (
     <>
+      {/* <ApolloProvider client={client}> */}
       <Paper>
         <Header />
         <TradePartnersTable />
       </Paper>
+      {/* </ApolloProvider> */}
     </>
   )
 }

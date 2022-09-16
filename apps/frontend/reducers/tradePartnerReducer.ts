@@ -1,33 +1,29 @@
-import { TradePartner } from '../../backend/src/Types/TradePartner';
-import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-interface TradePartnersState {
-    partners:TradePartner[]
+export type TradePartner = {
+  vendorId: string
+  vendorName: string
 }
 
-export const initialState = {
-    partners: []
-} as TradePartnersState;
+export interface TradePartnerState {
+  [index: number]: TradePartner
+}
+
+export const initialState = [] as TradePartnerState
 
 export const tradePartnersSlice = createSlice({
   name: 'tradepartner',
   initialState,
   reducers: {
     updateTradePartners(state, action: PayloadAction<TradePartner[]>) {
-        const tradePartners = action.payload
-        return {...state,
-            partners:[ ...tradePartners ]
-        }
+      return action.payload
     },
     clearTradePartners(state) {
-      return {
-        ...state, 
-        tradePartners:[]
-      }
+      return []
     },
-
   },
 })
 
-export const { updateTradePartners, clearTradePartners } = tradePartnersSlice.actions
+export const { updateTradePartners, clearTradePartners } =
+  tradePartnersSlice.actions

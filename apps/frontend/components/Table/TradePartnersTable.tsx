@@ -9,7 +9,7 @@ import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { TradePartner } from '../../../backend/src/Types/TradePartner'
+import { State } from '../../reducers/rootReducer'
 import {
   setTableOrder,
   setTableOrderBy,
@@ -18,36 +18,30 @@ import {
   setTableSelected,
   TableState,
 } from '../../reducers/tableReducer'
-import { RootState } from '../../store/store'
+import { TradePartner } from '../../reducers/tradePartnerReducer'
 import EnhancedTableHead from './EnhancedTableHead'
 import EnhancedTableToolbar from './EnhancedTableToolbar'
 import { getComparator, tableSort } from './HelperFunctions'
 
 interface StateProps {
   table: TableState
-  tradePartners: {
-    partners: TradePartner[]
-  }
+  partners: Array<TradePartner>
 }
 
-type TableProps = StateProps
-
 function TradePartnersTable() {
-  const { table, tradePartners } = useSelector<RootState, StateProps>(
-    (state: StateProps) => {
-      return {
-        table: state.table,
-        tradePartners: state.tradePartners,
-      }
+  const { table, partners } = useSelector<State, StateProps>((state: State) => {
+    return {
+      table: state.table,
+      partners: state.partners,
     }
-  )
+  })
 
   const { order, orderBy, selected, page, rowsPerPage } = table
-  const { partners } = tradePartners
+
   const dispatch = useDispatch()
 
   const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
+    _event: React.MouseEvent<unknown>,
     property: keyof TradePartner
   ) => {
     const isAsc = orderBy === property && order === 'asc'
@@ -64,7 +58,7 @@ function TradePartnersTable() {
     dispatch(setTableSelected([]))
   }
 
-  const handleClick = (event: React.MouseEvent<unknown>, vendorId: string) => {
+  const handleClick = (_event: React.MouseEvent<unknown>, vendorId: string) => {
     const selectedIndex = selected.indexOf(vendorId)
     let newSelected: string[] = []
     if (selectedIndex === -1) {
@@ -82,7 +76,7 @@ function TradePartnersTable() {
     dispatch(setTableSelected(newSelected))
   }
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (_event: unknown, newPage: number) => {
     dispatch(setTablePage(newPage))
   }
 

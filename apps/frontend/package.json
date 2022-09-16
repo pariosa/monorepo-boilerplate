@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "graphql": "^16.6.0",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -20,6 +22,7 @@
     "ui": "*"
   },
   "devDependencies": {
+    "@apollo/sandbox": "^0.3.0",
     "@babel/core": "^7.0.0",
     "@types/node": "^17.0.12",
     "@types/react": "18.0.17",

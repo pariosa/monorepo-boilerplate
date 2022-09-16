@@ -1,37 +1,31 @@
-import { Person } from '../../backend/dummyData/dummyData'
-import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-export const defaultPersonState: PersonsState ={
-  persons:[]
+export type Person = {
+  id: number
+  email: string
+  phoneNumber: string
+  first_name: string
+  last_name: string
+  avatar: string
 }
-
 
 export interface PersonsState {
-  persons: Person[]
+  [index: number]: Person
 }
 
-
-export const initialState = { persons: [] } as PersonsState
+export const initialState = [] as PersonsState
 
 export const personsSlice = createSlice({
   name: 'persons',
   initialState,
   reducers: {
     updatePersons(state, action: PayloadAction<Person[]>) {
-     const persons = action.payload
-      return {
-        ...state,
-        persons:[...persons]
-      }
+      return action.payload
     },
     clearPersons(state) {
-      return {
-        ...state, 
-        persons:[]
-      }
+      return []
     },
-
   },
 })
 

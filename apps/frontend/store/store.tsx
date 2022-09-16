@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
-import thunk from 'redux-thunk'
 import {
   initialState as preloadedState,
   rootReducer,
@@ -8,8 +7,7 @@ import {
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(logger, thunk),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   preloadedState,
   devTools: true,
 })

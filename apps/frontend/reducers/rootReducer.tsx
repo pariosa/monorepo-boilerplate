@@ -1,25 +1,34 @@
-import { combineReducers } from 'redux';
-import { Person } from '../../backend/dummyData/dummyData';
-import { TradePartner } from '../../backend/src/Types/TradePartner';
-import { personsSlice } from './personReducer';
-import {  tableSlice, TableState } from './tableReducer';
-import { tradePartnersSlice } from './tradePartnerReducer';
-import { initialState as initialTableState }  from '../reducers/tableReducer'
+import { combineReducers } from 'redux'
+import {
+  initialState as initialPersonState,
+  Person,
+  personsSlice,
+} from './personReducer'
+import {
+  initialState as initialTableState,
+  tableSlice,
+  TableState,
+} from './tableReducer'
+import {
+  initialState as initialPartnerState,
+  TradePartner,
+  tradePartnersSlice,
+} from './tradePartnerReducer'
+
 export type State = {
-    persons: Person[];
-    table: TableState,
-    tradePartners: TradePartner[]
-}
-export const initialState =  {
-    persons: [],
-    table: initialTableState,
-    tradePartners:[],
+  persons: Array<Person>
+  table: TableState
+  partners: Array<TradePartner>
 }
 
-// export const rootReducer = combineReducers(reducers);
+export const initialState = {
+  persons: initialPersonState,
+  table: initialTableState,
+  partners: initialPartnerState,
+}
 
 export const rootReducer = combineReducers({
-    persons: personsSlice.reducer,
-    table: tableSlice.reducer,
-    tradePartners: tradePartnersSlice.reducer
-});
+  persons: personsSlice.reducer,
+  table: tableSlice.reducer,
+  partners: tradePartnersSlice.reducer,
+})
